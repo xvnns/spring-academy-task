@@ -8,6 +8,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "warehouse", uniqueConstraints = @UniqueConstraint(columnNames = "vendor_code"))
