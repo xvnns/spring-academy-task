@@ -1,33 +1,34 @@
 package com.example.springacademytask.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "warehouse", uniqueConstraints = @UniqueConstraint(columnNames = "vendor_code"))
-public class Warehouse {
+@Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = "vendor_code"))
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "vendor_code")
+    @JsonProperty("vendor_code")
     private String vendorCode;
 
     private String description;
 
-    @Column(name = "product_category")
-    private String productCategory;
+    @Column(name = "category")
+    private String category;
 
     private Double price;
 
