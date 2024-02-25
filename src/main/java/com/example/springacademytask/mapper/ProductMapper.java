@@ -8,6 +8,7 @@ public class ProductMapper {
     public static ProductDto map(Product product) {
         return ProductDto.builder()
                 .name(product.getName())
+                .vendorCode(product.getVendorCode())
                 .description(product.getDescription())
                 .category(product.getCategory())
                 .price(product.getPrice())
@@ -18,6 +19,7 @@ public class ProductMapper {
     public static Product map(ProductDto productDto) {
         return Product.builder()
                 .name(productDto.getName())
+                .vendorCode(productDto.getVendorCode())
                 .description(productDto.getDescription())
                 .category(productDto.getCategory())
                 .price(productDto.getPrice())

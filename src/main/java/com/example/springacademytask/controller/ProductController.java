@@ -1,7 +1,9 @@
 package com.example.springacademytask.controller;
 
 import com.example.springacademytask.dto.ProductDto;
+import com.example.springacademytask.exception.ProductNotFoundException;
 import com.example.springacademytask.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto productDto) {
         return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
     }
 
@@ -31,13 +33,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getById(@PathVariable("id") UUID id) {
+    public ResponseEntity<ProductDto> getById(@PathVariable("id") UUID id) throws ProductNotFoundException {
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> update(@PathVariable("id") UUID id,
-                                             @RequestBody ProductDto productDto) {
+                                             @Valid @RequestBody ProductDto productDto) throws ProductNotFoundException {
 
         return new ResponseEntity<>(productService.updateProduct(id, productDto), HttpStatus.OK);
     }

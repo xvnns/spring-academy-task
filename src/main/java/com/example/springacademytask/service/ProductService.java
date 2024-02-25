@@ -1,6 +1,7 @@
 package com.example.springacademytask.service;
 
 import com.example.springacademytask.dto.ProductDto;
+import com.example.springacademytask.exception.ProductNotFoundException;
 import com.example.springacademytask.mapper.ProductMapper;
 import com.example.springacademytask.model.Product;
 import com.example.springacademytask.repository.ProductRepository;
@@ -44,24 +45,28 @@ public class ProductService {
         return productList.stream().map(ProductMapper::map).collect(Collectors.toList());
     }
 
-    public ProductDto getProductById(UUID id) {
+    public ProductDto getProductById(UUID id) throws ProductNotFoundException {
         Product product = productRepository.findById(id);
+        if (product == null) {
+            throw new ProductNotFoundException(id);
+        }
         return ProductMapper.map(product);
     }
 
-    public ProductDto updateProduct(UUID id, ProductDto productDto) {
+    public ProductDto updateProduct(UUID id, ProductDto productDto) throws ProductNotFoundException {
         Product product = productRepository.findById(id);
-
+        if (product == null) {
+            throw new ProductNotFoundException(id);
+        }
         product.setName(productDto.getName());
         product.setVendorCode(productDto.getVendorCode());
         product.setDescription(productDto.getDescription());
         product.setCategory(productDto.getCategory());
         product.setPrice(productDto.getPrice());
-        product.setQuantity(productDto.getQuantity());
         if (!Objects.equals(productDto.getQuantity(), product.getQuantity())) {
             product.setQuantityUpdateDate(new Date());
         }
-
+        product.setQuantity(productDto.getQuantity());
         return ProductMapper.map(productRepository.save(product));
     }
 
