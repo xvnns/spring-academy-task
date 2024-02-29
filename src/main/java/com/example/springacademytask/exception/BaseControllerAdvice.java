@@ -24,7 +24,7 @@ public class BaseControllerAdvice {
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return response(HttpStatus.FORBIDDEN, new ValidationException(errors));
+        return response(HttpStatus.BAD_REQUEST, new ValidationException(errors));
     }
 
     @ExceptionHandler({DataIntegrityViolationException.class, ProductNotFoundException.class})
