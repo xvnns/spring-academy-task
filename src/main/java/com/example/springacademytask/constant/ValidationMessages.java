@@ -1,0 +1,19 @@
+package com.example.springacademytask.constant;
+
+public class ValidationMessages {
+    public static final String NAME_NOT_BLANK_MESSAGE = "Name must not be blank";
+    public static final String NAME_NOT_NULL_MESSAGE = "Please enter name";
+    public static final String NAME_SIZE_MAX_MESSAGE = "Name must not be more than 90 characters";
+    public static final String VENDOR_CODE_NOT_BLANK_MESSAGE = "Vendor code must not be blank";
+    public static final String VENDOR_CODE_NOT_NULL_MESSAGE = "Please enter vendor code";
+    public static final String VENDOR_CODE_SIZE_MAX_MESSAGE = "Vendor code must not be more than 255 characters";
+    public static final String DESCRIPTION_NOT_BLANK_MESSAGE = "Description must not be more than 2000 characters";
+    public static final String DESCRIPTION_SIZE_MAX_MESSAGE = "Description must not be blank";
+    public static final String CATEGORY_NOT_BLANK_MESSAGE = "Category must not be blank";
+    public static final String CATEGORY_NOT_NULL_MESSAGE = "Please enter category";
+    public static final String CATEGORY_SIZE_MAX_MESSAGE = "Category must not be more than 255 characters";
+    public static final String PRICE_NOT_NULL_MESSAGE = "Please enter price";
+    public static final String PRICE_MIN_VALUE_MESSAGE = "Price cannot be less than 0.0";
+    public static final String QUANTITY_NOT_NULL_MESSAGE = "Please enter quantity";
+    public static final String QUANTITY_MIN_VALUE_MESSAGE = "Quantity cannot be less than 0";
+}

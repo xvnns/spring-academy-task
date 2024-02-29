@@ -1,5 +1,6 @@
 package com.example.springacademytask.dto;
 
+import com.example.springacademytask.constant.ValidationMessages;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -10,31 +11,31 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class ProductDto {
-    @NotBlank(message = "Name must not be blank")
-    @NotNull(message = "Please enter name")
-    @Size(max = 90, message = "Name must not be more than 90 characters")
+    @NotBlank(message = ValidationMessages.NAME_NOT_BLANK_MESSAGE)
+    @NotNull(message = ValidationMessages.NAME_NOT_NULL_MESSAGE)
+    @Size(max = 90, message = ValidationMessages.NAME_SIZE_MAX_MESSAGE)
     private String name;
 
-    @NotBlank(message = "Vendor code must not be blank")
-    @NotNull(message = "Please enter vendor code")
-    @Size(max = 255, message = "Vendor code must not be more than 255 characters")
+    @NotBlank(message = ValidationMessages.VENDOR_CODE_NOT_BLANK_MESSAGE)
+    @NotNull(message = ValidationMessages.VENDOR_CODE_NOT_NULL_MESSAGE)
+    @Size(max = 255, message = ValidationMessages.VENDOR_CODE_SIZE_MAX_MESSAGE)
     @JsonProperty("vendor_code")
     private String vendorCode;
 
-    @Size(max = 2000, message = "Description must not be more than 2000 characters")
-    @NotBlank(message = "Description must not be blank")
+    @Size(max = 2000, message = ValidationMessages.DESCRIPTION_SIZE_MAX_MESSAGE)
+    @NotBlank(message = ValidationMessages.DESCRIPTION_NOT_BLANK_MESSAGE)
     private String description;
 
-    @NotBlank(message = "Category must not be blank")
-    @NotNull(message = "Please enter category")
-    @Size(max = 255, message = "Category must not be more than 255 characters")
+    @NotBlank(message = ValidationMessages.CATEGORY_NOT_BLANK_MESSAGE)
+    @NotNull(message = ValidationMessages.CATEGORY_NOT_NULL_MESSAGE)
+    @Size(max = 255, message = ValidationMessages.CATEGORY_SIZE_MAX_MESSAGE)
     private String category;
 
-    @NotNull(message = "Please enter price")
-    @DecimalMin(value = "0.0", message = "Price cannot be less than 0.0")
+    @NotNull(message = ValidationMessages.PRICE_NOT_NULL_MESSAGE)
+    @DecimalMin(value = "0.0", message = ValidationMessages.PRICE_MIN_VALUE_MESSAGE)
     private Double price;
 
-    @NotNull(message = "Please enter quantity")
-    @Min(value = 0, message = "Quantity cannot be less than 0")
+    @NotNull(message = ValidationMessages.QUANTITY_NOT_NULL_MESSAGE)
+    @Min(value = 0, message = ValidationMessages.QUANTITY_MIN_VALUE_MESSAGE)
     private Integer quantity;
 }
