@@ -2,6 +2,7 @@ package com.example.springacademytask.service;
 
 import com.example.springacademytask.dto.ProductDto;
 import com.example.springacademytask.exception.ProductNotFoundException;
+import com.example.springacademytask.exception.ProductWithThisVendorCodeAlreadyExistsException;
 import com.example.springacademytask.mapper.ProductMapper;
 import com.example.springacademytask.model.Product;
 import com.example.springacademytask.repository.ProductRepository;
@@ -22,10 +23,14 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public ProductDto createProduct(ProductDto productDto) {
-        Product product = ProductMapper.map(productDto);
-        product.setCreateTs(new Date());
-        return ProductMapper.map(productRepository.save(product));
+    public ProductDto createProduct(ProductDto productDto) throws ProductWithThisVendorCodeAlreadyExistsException {
+        if (productRepository.existsByVendorCode(productDto.getVendorCode())) {
+            throw new ProductWithThisVendorCodeAlreadyExistsException();
+        } else {
+            Product product = ProductMapper.map(productDto);
+            product.setCreateTs(new Date());
+            return ProductMapper.map(productRepository.save(product));
+        }
     }
 
     public List<ProductDto> getAllProducts(String name, String category) {
@@ -43,6 +48,10 @@ public class ProductService {
             productList = productRepository.findAll();
         }
         return productList.stream().map(ProductMapper::map).collect(Collectors.toList());
+    }
+
+    public List<ProductDto> getAllProducts() {
+        return productRepository.findAll().stream().map(ProductMapper::map).collect(Collectors.toList());
     }
 
     public ProductDto getProductById(UUID id) throws ProductNotFoundException {

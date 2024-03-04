@@ -1,7 +1,6 @@
 package com.example.springacademytask.exception;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,7 +26,7 @@ public class BaseControllerAdvice {
         return response(HttpStatus.BAD_REQUEST, new ValidationException(errors));
     }
 
-    @ExceptionHandler({DataIntegrityViolationException.class, ProductNotFoundException.class})
+    @ExceptionHandler({ProductWithThisVendorCodeAlreadyExistsException.class, ProductNotFoundException.class})
     public Object handleMultipleExceptions(Exception ex) {
         return response(HttpStatus.FORBIDDEN, ex);
     }

@@ -2,6 +2,7 @@ package com.example.springacademytask.controller;
 
 import com.example.springacademytask.dto.ProductDto;
 import com.example.springacademytask.exception.ProductNotFoundException;
+import com.example.springacademytask.exception.ProductWithThisVendorCodeAlreadyExistsException;
 import com.example.springacademytask.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto productDto)
+            throws ProductWithThisVendorCodeAlreadyExistsException {
         return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
     }
 
