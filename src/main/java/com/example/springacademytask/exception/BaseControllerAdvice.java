@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public class BaseControllerAdvice {
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm z");
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    // todo @ExceptionHandler(ValidationException.class)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult()
@@ -26,6 +29,7 @@ public class BaseControllerAdvice {
         return response(HttpStatus.BAD_REQUEST, new ValidationException(errors));
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler({ProductWithThisVendorCodeAlreadyExistsException.class, ProductNotFoundException.class})
     public Object handleMultipleExceptions(Exception ex) {
         return response(HttpStatus.FORBIDDEN, ex);
